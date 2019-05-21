@@ -11,6 +11,16 @@ node
       sh "git clean -fdx"
 	  
     }
+    
+    stage ('Package Image') {
+        sh '''
+		    
+	    echo "JenkinsWorkspace = ${WORKSPACE}"
+            echo "PATH = ${PATH}"
+            echo "M2_HOME = ${M2_HOME}"
+        '''
+		
+        }
 
 	
   } catch(err)
