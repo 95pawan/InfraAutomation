@@ -1,0 +1,376 @@
+body {
+	min-height: 100%;
+}
+
+.taleo-header {
+	background-color: #333333;
+	padding: 10px;
+}
+
+.headerLogo {
+	display: table-cell;
+	margin-right: 30px;
+	padding-left: 15px;
+	vertical-align: middle;
+	float: left;
+}
+
+.wrapper {
+	display: table;
+	margin: 0 auto;
+	width: 100%;
+}
+
+
+
+.searchPanel {
+	width: 100%;
+	display: block;
+	
+}
+
+.searchPanelBody {
+	padding: 15px;
+}
+
+.seperator {
+	height: 1px;
+	width: 100%;
+	border-bottom: 1px;
+	background-color: #ddd;
+	float: left;
+	padding: -15px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: black;
+}
+
+#side-carousel img {
+	margin: 0 auto;
+}
+
+.footer-blurb {
+	padding: 30px 0;
+	margin-top: 20px;
+	background-color: #eee;
+	color: black;
+}
+
+.footer-blurb-item {
+	padding: 20px;
+}
+
+.small-print {
+	background-color: #fff;
+	padding: 30px 0;
+}
+
+.feature, .page-intro, .article-intro, .small-print {
+	text-align: center;
+}
+
+.navbar-brand {
+	color: black;
+}
+
+}
+.paging-nav {
+	text-align: right;
+	padding-top: 2px;
+}
+
+.paging-nav a {
+	margin: auto 1px;
+	text-decoration: none;
+	display: inline-block;
+	padding: 1px 7px;
+	background: #91b9e6;
+	color: white;
+	border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+	background: #187ed5;
+	font-weight: bold;
+}
+
+.paging-nav, #tableData {
+	width: 400px;
+	margin: 0 auto;
+	font-family: Arial, sans-serif;
+}
+
+#reportPanel {
+	margin-bottom: 60px;
+	display: none;
+}
+
+#TabPanel {
+	margin-top: 2px;
+	display: none;
+}
+
+.tab {
+	padding: 10px 15px;
+	color: black;
+	background-color: #d5d5d5;
+	margin: 1px;
+	border-top-left-radius:15px;
+	border-top-right-radius:15px;
+	
+}
+
+.tab:hover {
+	padding: 10px 15px;
+	background-color: #435563;
+	color: white;
+}
+
+.tabAnchor:hover {
+	padding: 10px 15px;
+	color: white;
+}
+.tab-selected {
+	background-color: #435563;
+	color: white;
+}
+
+.centerDiv {
+	position: absolute;
+	display: none;
+	width: 100%;
+	min-height: 75%;
+	clear: top;
+	z-index: -2;
+}
+
+
+
+#content {
+	min-height: 100%;
+}
+
+.center {
+	position: absolute;
+	display: block;
+	top: 40%;
+	width: 100%;
+	text-align: center;
+}
+
+.waitmsg {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+#tabs {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+
+.progress-pie-chart {
+    background-color: #d9ff66;
+    border-radius: 50%;
+    height: 110px;
+    position: relative;
+    width: 110px;
+}
+.progress-pie-chart.gt-50 {
+    background-color: #66ff66;
+}
+.ppc-progress {
+    border-radius: 50%;
+    clip: rect(0px, 110px, 110px, 55px);
+    content: "";
+    height: 110px;
+    left: calc(50% - 55px);
+    position: absolute;
+    top: calc(50% - 55px);
+    width: 110px;
+    
+}
+.ppc-progress .ppc-progress-fill {
+    background: #81ce97 none repeat scroll 0 0;
+    border-radius: 50%;
+    clip: rect(0px, 55px, 110px, 0px);
+    content: "";
+    height: 110px;
+    left: calc(50% - 55px);
+    position: absolute;
+    top: calc(50% - 55px);
+    transform: rotate(10deg);
+    width: 110px;
+}
+.gt-50 .ppc-progress {
+    clip: rect(0px, 55px, 110px, 0px);
+}
+.gt-50 .ppc-progress .ppc-progress-fill {
+    background: lightgray none repeat scroll 0 0;
+    clip: rect(0px, 110px, 110px, 55px);
+}
+.ppc-percents {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 50%;
+    content: "";
+    display: table;
+    height: 100.913px;
+    left: calc(50% - 100.913px / 2);
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 100.913px / 2);
+    width: 100.913px;
+    clip: rect(0px, 100px, 100px, 100px): ;
+}
+.ppc-percents span {
+    color: #81ce97;
+    display: block;
+    font-size: 1.6em;
+    font-weight: bold;
+}
+.pcc-percents-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+body {
+    background: #f7f7f7 none repeat scroll 0 0;
+    font-family: Arial;
+}
+.progress-pie-chart {
+    margin: 50px auto 0;
+}
+.boxed{
+	border:1px solid blue;
+	background-color:white;
+	padding-bottom:200px;
+
+}
+#web1{
+	padding-bottom:2px;
+}
+.absolute{
+	top:20px;
+	bottom:20px;
+	heigth:200px;
+	width:200px;
+	z-index:1;
+	
+	
+}
+.abs1{
+	top:20px;
+	bottom:20px;
+	heigth:200px;
+	width:200px;
+	visibility:visible;
+	z-index:2;
+}
+
+
+.notetext
+{
+	width: 100%;
+	padding-left: 15px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	background-color: #e5e5e5;
+	font-weight: bold;
+	display: none; 
+}
+.errornote
+{
+	display: none; 
+	width: 100%;
+	padding-left: 15px;
+}
+#popularReportDiv{
+	height: 100%;
+	display: none;
+	clear:both;
+	
+}
+#reportFilter
+{
+	
+}
+
+.alternateRow tr{
+	background: #FFF;
+}
+.alternateRow tr:nth-child(odd){ 
+	background: #F9F9F9;
+}
+.alternateRow tr:nth-child(even){
+	background: #FFF;
+}
+.alternateRow > thead > tr > th
+{
+  background: #435563;
+  line-height: 1.82857143;
+  color: #FFF;
+}
+a:hover{
+    text-decoration: none;
+}
+#return-to-top {
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+#return-to-top:hover i {
+    color: #fff;
+    top: 5px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  border-color: #435563 #435563 #435563;
+  background-color: #435563;
+}
+.nav > li > a {
+     text-decoration: none;
+     display: block;
+     width: 100%;
+     height: 100%;
+	 color: white;
+}
+.spanLevelProgress{
+  background: #435563;
+  line-height: 1.82857143;
+  color: #FFF;
+  font-weight: bold;
+  padding: .3em 1em .3em 1em;
+  border: 1px solid #888;
+}

@@ -1,0 +1,34 @@
+---
+applications:
+- name: WSQCUserInterface
+  memory: 1024M  
+  command: node server.js
+  services:
+  - cloudapps-tool-rmq
+  env:
+    #APP_PORT: 8080    
+    CRAWL_LEVEL: 1
+    CRAWLER_SERVICE_URL: https://wsqccrawlerservice.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/crawlreport?
+    WEBSITE_SEPARATER: ","
+    REPORT_TABLE_DATA_LIMIT: 11
+    SOCKET_IO_URL: https://wsqccommunicationservices.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk
+    CACHE_POPULAR_REPORT_URL: https://wsqcservicemanagement.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/read-popular-websites
+    CACHE_RETRIEVE_REPORT_URL: https://wsqcreports.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/websitequalitychecker/popularcrawlreport?
+    DATASERVICE_UPDATE_REPORT_URL: https://wsqcreports.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/dataservice/update
+    DATASERVICE_CONNECTION_TEST_URL: https://wsqcreports.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/dataservice/check-Availability
+    CRAWLER_SERVICE_CONNECTION_TEST_URL: https://wsqccrawlerservice.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/crawlerhealthcheck
+    CACHE_CONNECTION_TEST_URL: https://wsqcservicemanagement.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/check-Availability
+    SERVICE_TIMEOUT_THRESHOLD: 400000
+    ROUTER_SERVICE_URL: https://wsqcservicemanagement.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/get-next-action
+    CRAWLER_HEALTH_CHECK_URL: /crawler-health-check
+    NODE_HEALTH_CHECK_URL: /node-health-check
+    QUEUE_HEALTH_CHECK_URL: /queue-health-check
+    SERVICE_RETRY_THRESHOLD: 30000
+    REQUEST_VOLUME_THRESHOLD: 0
+    SLEEP_WINDOW_TIME: 300000
+    RABBITMQ_SERVICE: wsqc-rabbitmq3
+    CRAWLER_QUEUE: DATA_SERVICE_QUEUE
+    REPORT_QUEUE: REPORT_DATA_QUEUE
+    NODE_SERVICE_CONNECTION_TEST_URL: https://wsqccommunicationservices.apps.pcf-dojo-sandbox.dxc-pcf-sb.tk/listener-health-check
+    QUEUE_SERVICE_CONNECTION_TEST_URL: http://api.16.202.66.191.xip.io:30002/api/aliveness-test/vdc062b83bcbc412e946b0f5be889218d
+    STACKATO_SERVICES: '{"wsqc-rabbitmq3": {"name":"cloudapps-tool-rmq","hostname":"10.0.0.19","host":"10.0.0.19","port":5672,"vhost":"8c675449-89ba-4515-91b9-4eeb17f0256d","username":"358b101a-e760-4f2a-b420-64c2abd0d21e","user":"358b101a-e760-4f2a-b420-64c2abd0d21e","password":"o129nlr25iv9clbjlu0ksnat8f","pass":"o129nlr25iv9clbjlu0ksnat8f","uri":"amqp://358b101a-e760-4f2a-b420-64c2abd0d21e:o129nlr25iv9clbjlu0ksnat8f@10.0.0.19:5672/8c675449-89ba-4515-91b9-4eeb17f0256d","dashboard_url":"https://pivotal-rabbitmq.sys.pcf-dojo-sandbox.dxc-pcf-sb.tk/#/login/358b101a-e760-4f2a-b420-64c2abd0d21e/o129nlr25iv9clbjlu0ksnat8f"}}'

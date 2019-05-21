@@ -1,0 +1,137 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Quality Checker REST api</title>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/custom.css" rel="stylesheet">
+
+
+	</head>
+<body>
+
+	<header>
+		<div class="taleo-header">
+			<div class="wrapper">
+				<div class="headerLogo">
+					<a href="https://www.hpe.com" shape="rect"><img width="125"
+						height="53" alt="Hewlett Packard Enterprise"
+						src="../img/1-2_hp-logo-white.gif"></a>
+				</div>
+				<a class="navbar-brand" style="color: white;">Website Quality
+					Checker</a>
+
+			</div>
+
+		</div>
+	</header>
+
+	<div id="content" class="col-md-offset-2 col-md-8" >
+	
+		<div class="panel panel-default ">
+			<div class="panel-heading">
+				<span>Crawl report</span>
+			</div>
+			<div class="panel-body">
+				<p>
+					This API is used to generate a report for the links entered by the user. The report consist of a counters for each type such as html file, download file or email address. The report also contains a list of URLs which are invalid. The list is segregated into three list containing links to either html file, download file or an email address.
+				</p>
+				
+				<table class="table table-bordered">
+		<tbody>
+				<tr>
+					<td class="success">Resource URI</td>
+					<td colspan=4 >http://host:port/crawlreport?website=http://website-to-crawl.com&crawllevel=1</td>	
+				</tr>
+				<tr>
+					<td class="success">HTTP Method</td>
+					<td colspan=4 >GET</td>	
+				</tr>
+				<tr>
+					<td class="success">Message Format</td>
+					<td colspan=4 >JSON</td>	
+				</tr>
+				<tr>
+					<td class="success">Sample Request</td>
+					<td colspan=4 >http://localhost:8080/crawlreport?website=http://16.181.235.85:8080&crawllevel=1</td>	
+				</tr>
+				<tr>
+					<td class="success">Sample Response</td>
+					<td colspan=4 >
+{<br>
+&emsp; "reportList": <br>
+&emsp;&emsp;{<br>
+&emsp;&emsp;&emsp;"http://16.181.235.85:8080":<br>
+&emsp;&emsp;&emsp;&emsp;{<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" isValid ": true,<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" crawled ": "completed",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" totalUrlCount ": "72",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" totalDownload ": "4",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" totalEmail ": "4",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" invalidUrlCount ": "3",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" invalidDownloadCount ": "2",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" invalidEmailCount ": "0",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;" skippedURL ": "0","invalidDownloads":<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"http://16.181.235.85:8080/invaliddownload.txt",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"http://16.181.235.85:8080/sample.txt"<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;],<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;"invalidUrls":<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"http://16.181.235.85:8080/jasper-howto.html",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"http://16.181.235.85:8080/security-howto.html",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"http://16.181.235.85:8080/security-manager-howto.html",<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;],<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;"invalidEmails":<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;[<br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;]<br>
+&emsp;&emsp;&emsp;&emsp;}<br>
+&emsp;&emsp;}<br>
+}</td>	
+				</tr>
+		</tbody>	
+		</table>
+				
+				
+			</div>
+		</div>
+		
+		
+
+		
+	</div>
+	
+
+	<footer>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-sm-offset-3 col-sm-9">
+						<a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy
+							Policy</a> | <a href="#">Contact</a> | <a target="_blank" href="https://github.hpe.com/NativeCloudApplications/WebSiteQualityChecker">GitHub</a> | <a target="_blank" href="https://www.yammer.com/hpe.com/#/threads/inGroup?type=in_group&feedId=7915767&view=all">Yammer</a> | <a  href="#">REST spec</a> 
+					</div>
+				</div>
+				<div class="row">
+					
+					<div class="col-sm-offset-4 col-sm-4">Copyright &copy; DXC Technology 2018</div>
+				</div>
+			</div>
+		</nav>
+	</footer>
+
+	<!-- jQuery -->
+
+	
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery-ui-1.11.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/paging.js"></script>
+	
+
+</body>
+</html>

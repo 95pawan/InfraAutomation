@@ -1,0 +1,21 @@
+version: "3.1"
+
+services:
+  wsqcuserin:
+    image: dtrhackathon.cloudspc.it/gnisarga/wsqc_ui1
+    environment:
+      STACKATO_SERVICE: wsqc-rabbitmq3
+      rabbitmq_user: guest
+      rabbitmq_password: password
+    labels:
+      - "com.dxc.ecaas.friendlyname=DemoProject1"
+    deploy:
+      labels:
+        - "ecaas.external.port=8081"
+        - "ecaas.external.host=wsqcuserin"
+        - "com.docker.ucp.access.label=/Shared/ecaas"
+    networks:
+      - default
+
+networks:
+  default:

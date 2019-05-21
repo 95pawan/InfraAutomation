@@ -1,0 +1,23 @@
+{
+	"name":"wsqc-ui",
+	"version":"0.0.0",
+	"private":"true",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies":{
+		"socket.io":"1.4.8",
+		"express":"*",
+		"amqplib": "*",
+		"body-parser":"*",
+		"request": "*",
+		"q": "*",
+		"request-promise-json":"*",
+		"lodash":"*",
+		"hystrixjs":"*",
+		"timer":"*",
+		"timers":"*",		
+		"eureka-js-client": "*",
+		"ip": "1.1.5"
+	}
+}

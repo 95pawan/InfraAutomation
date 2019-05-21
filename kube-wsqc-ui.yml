@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: wsqcuserinterface
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wsqcuserinterface
+    spec:
+      containers:
+      - name: wsqcuserinterface
+        image: dxccna.azurecr.io/wsqcuserinterface:latest
+        ports:
+          - containerPort: 8081        
+        env:
+        - name: REDEPLOY
+          value: "REPLACE"        
+        - name: STACKATO_SERVICES
+          value: "{\"wsqc-rabbitmq3\": {\"name\":\"guest\",\"hostname\":\"rabbitmq\",\"host\":\"rabbitmq\",\"port\":5672,\"vhost\":\"wsqc\",\"username\":\"guest\",\"user\":\"guest\",\"password\":\"password\",\"pass\":\"password\",\"uri\":\"amqp://guest:password@rabbitmq:5672/wsqc\",\"dashboard_url\":\"http://rabbitmq:15672\"}}"
+      imagePullSecrets:
+      - name: azure-docker-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wsqcuserinterface
+  labels:
+    name: wsqcuserinterface
+spec:
+  ports:
+  - port: 8081
+  type: LoadBalancer
+  selector:
+    app: wsqcuserinterface
