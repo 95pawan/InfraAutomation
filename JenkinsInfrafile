@@ -1,30 +1,52 @@
-node
-{
-  try {
-   
-    stage('Pull from SCM') {
-      checkout scm
-	  
+pipeline {
+    agent any
+    parameters{
+        choice(
+            
+        choices:'\nAzure',
+        description:'choose the cloud provider',
+        name:'PUBLIC_CLOUD')
     }
-	
-    stage('Test and Build app') {
-      sh "git clean -fdx"
-	  
-    }
-    
-    stage ('Package Image') {
-        sh '''
-		    
-	    echo "JenkinsWorkspace = ${WORKSPACE}"
-            echo "PATH = ${PATH}"
-            echo "M2_HOME = ${M2_HOME}"
-        '''
-		
-        }
+     stages{
+    stage ('checkout'){
+        when {
+                // checkout when Azure is  requested
+                expression { params.PUBLIC_CLOUD == 'Azure' }
+            }
+    steps{
+    checkout scm
+}}
 
-	
-  } catch(err)
-  {
-  echo "${err}"
-  }
+ // Mark the code build 'plan'....
+         
+            // Output Terraform version
+            
+            
+            stage ('Initialize Terraform'){
+                when {
+                // checkout when Azure is  requested
+                expression { params.PUBLIC_CLOUD == 'Azure' }
+                }
+                steps{
+            sh "terraform init"
+            }}
+       
+            stage ('Terraform Plan'){
+                when {
+                // checkout when Azure is  requested
+                expression { params.PUBLIC_CLOUD == 'Azure' }
+                }
+                steps{
+        
+            
+             sh '''
+         
+         
+         terraform apply -input=true -auto-approve
+         
+         '''
+            
+            }
+            }
+}
 }
