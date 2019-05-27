@@ -1,3 +1,15 @@
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+subscription_id = "cbe76251-44c1-44b7-bf4c-ddfb8b65d2e3"
+   
+ client_id       = "0ada6388-c5c9-4364-8d02-9928346b8f91"
+   
+ client_secret   = "AE1myetO59THt+E8auZ.Rafr=IQ[4sXT"
+  
+ tenant_id       = "93f33571-550f-43cf-b09f-cd331338d086"
+
+}
+
 resource "azurerm_resource_group" "test" {
   name     = "acctestrg"
   location = "West US 2"
@@ -115,12 +127,6 @@ resource "azurerm_virtual_machine_extension" "test" {
   type                 = "CustomScriptForLinux"
   type_handler_version = "1.2"
 
-  settings = <<SETTINGS
-    {
-        "fileUris": ["https://raw.githubusercontent.com/NisargaG/Jenkins/master/jenkins_install.sh"],
-          "commandToExecute": "sh jenkins_install.sh"
-    }
-SETTINGS
 
   tags {
     environment = "Production"
