@@ -1,5 +1,6 @@
 Echo "signing in to the azure portal . . . . . . ." 
-az login -u xxxxxx -p xxxxxx
+az login -u nisarga.g@dxc.com -p Myfrd@4059
+az account set --subscription cbe76251-44c1-44b7-bf4c-ddfb8b65d2e3
 
 echo "initializing the terraform  . . . . . . . ."
 terraform init
