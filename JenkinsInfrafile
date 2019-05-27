@@ -3,7 +3,7 @@ pipeline {
     parameters{
         choice(
             
-        choices:'\nAzure',
+        choices:'\nAzure\nAWS',
         description:'choose the cloud provider',
         name:'PUBLIC_CLOUD')
     }
@@ -14,10 +14,17 @@ pipeline {
                 expression { params.PUBLIC_CLOUD == 'Azure' }
             }
     steps{
-    checkout scm
+checkout scm
 }}
-
- // Mark the code build 'plan'....
+stage ('checkout_AWS'){
+        when {
+                // checkout when Aws is  requested
+                expression { params.PUBLIC_CLOUD == 'AWS' }
+            }
+    steps{
+git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.dxc.com/vrajamanick2/cloudformation.git'
+}}
+// Mark the code build 'plan'....
          
             // Output Terraform version
             
@@ -31,22 +38,35 @@ pipeline {
             sh "terraform init"
             }}
        
-            stage ('Terraform Plan'){
+            stage ('Terraform Apply'){
                 when {
                 // checkout when Azure is  requested
                 expression { params.PUBLIC_CLOUD == 'Azure' }
                 }
                 steps{
-        
             
-             sh '''
-         
-         
-         terraform apply -input=true -auto-approve
-         
-         '''
+            sh '''                 
+            terraform apply -input=true -auto-approve
+          
+            '''
             
             }
             }
+            
+                                                stage ('run cloudformation script'){
+        when {
+                // checkout when Aws is  requested
+                expression { params.PUBLIC_CLOUD == 'AWS' }
+            }
+    steps{
+           sh '''
+                                   aws cloudformation create-stack --stack-name startmyinstance2 --template-body file://${WORKSPACE}/cloud.json
+                                   aws cloudformation wait stack-create-complete --stack-name startmyinstance2
+                                   
+                                   
+                                   '''
+}}
+
+
 }
 }
