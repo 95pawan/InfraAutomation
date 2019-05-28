@@ -140,7 +140,14 @@ IyZGuK86MyHPGmE37/nRv4qpkbpSCJxRPWfFUsjFcwqdXFYslWyugJiWPmNtS0zw
 wgq5djdz6k9X1F0ts9L2Olbjxru0rL8iDyhhi9ksOhdx3X5W7EYoZQ== pavanpg8383@gmail.com"
       }]
   }
-	
+	connection {
+        host = "sometestdn.westus.cloudapp.azure.com"
+        user = "jenkins"
+        type = "ssh"
+        private_key = "${file("~/.ssh/id_rsa_unencrypted")}"
+        timeout = "1m"
+        agent = true
+    }
   tags {
     environment = "staging"
   }
