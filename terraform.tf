@@ -117,7 +117,7 @@ resource "azurerm_virtual_machine" "test" {
       }]
   }
 	connection {
-        host = "sometestdn.ukwest.cloudapp.azure.com"
+        host = "sometestdn.westus.cloudapp.azure.com"
         user = "testadmin"
         type = "ssh"
         private_key = "${file("~/.ssh/id_rsa_unencrypted")}"
