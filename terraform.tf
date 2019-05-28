@@ -106,11 +106,15 @@ resource "azurerm_virtual_machine" "test" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "testadmin"
-    admin_password = "Password1234!"
+    #admin_password = "Password1234!"
   }
 
   os_profile_linux_config {
-    disable_password_authentication = false
+    disable_password_authentication = true
+	  ssh_keys = [{
+        path     = "/home/jenkins/.ssh/authorized_keys"
+        key_data = "sh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRj5v+Vpg4iFLNUEUcGIBQxLtpDEUiHP8YyYS0bASYOaMou9+FR96DxN+aMciH89er8Mp8pygGjjT9JOeFKuQkVeRjVMQg97P9Uw91xOu7dJ7efGFwEgkPqn+TYvXENNpFoppHHC5fy2lDMW/wT+uyu7quUMFn3rte0CnrXqp6a85tlVEeMeSySNq9sHeGM2sD9mP+RM/s+hm30AJ8G7qPAMEPYbKScrOTlsvhtvd2d83SYyDopm3tTV9/stJlIiJXkg8OTGeg0vpgOEqBeG7e5vaMzroOEzWiEl/+CsU6YlDPJ83bm6ERzUtbJUvFwRdO1PXZFbxqO2dc9+HCu6eT jenkins@jenkins"
+      }]
   }
 
   tags {
