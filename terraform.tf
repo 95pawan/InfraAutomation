@@ -116,6 +116,14 @@ resource "azurerm_virtual_machine" "test" {
         key_data = "sh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRj5v+Vpg4iFLNUEUcGIBQxLtpDEUiHP8YyYS0bASYOaMou9+FR96DxN+aMciH89er8Mp8pygGjjT9JOeFKuQkVeRjVMQg97P9Uw91xOu7dJ7efGFwEgkPqn+TYvXENNpFoppHHC5fy2lDMW/wT+uyu7quUMFn3rte0CnrXqp6a85tlVEeMeSySNq9sHeGM2sD9mP+RM/s+hm30AJ8G7qPAMEPYbKScrOTlsvhtvd2d83SYyDopm3tTV9/stJlIiJXkg8OTGeg0vpgOEqBeG7e5vaMzroOEzWiEl/+CsU6YlDPJ83bm6ERzUtbJUvFwRdO1PXZFbxqO2dc9+HCu6eT jenkins@jenkins"
       }]
   }
+	connection {
+        host = "sometestdn.ukwest.cloudapp.azure.com"
+        user = "testadmin"
+        type = "ssh"
+        private_key = "${file("~/.ssh/id_rsa_unencrypted")}"
+        timeout = "1m"
+        agent = true
+    }
 
   tags {
     environment = "staging"
