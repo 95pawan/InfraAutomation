@@ -106,7 +106,7 @@ resource "azurerm_virtual_machine" "test" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "jenkins"
-    #admin_password = "Password1234!"
+    admin_password = "Password1234!"
   }
 
   os_profile_linux_config {
