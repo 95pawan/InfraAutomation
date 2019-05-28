@@ -110,7 +110,7 @@ resource "azurerm_virtual_machine" "test" {
   }
 
   os_profile_linux_config {
-    disable_password_authentication = true
+    disable_password_authentication = false
 	  ssh_keys = [{
         path     = "/home/jenkins/.ssh/authorized_keys"
         key_data = "ssh-rsa MIIEpAIBAAKCAQEAp8VLDQuLUm9VOFfFWozNt0vR/xGhPPO7VZC5vX7L+KHmkTT+
