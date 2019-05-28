@@ -113,7 +113,7 @@ resource "azurerm_virtual_machine" "test" {
     disable_password_authentication = true
 	  ssh_keys = [{
         path     = "/home/jenkins/.ssh/authorized_keys"
-        key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRj5v+Vpg4iFLNUEUcGIBQxLtpDEUiHP8YyYS0bASYOaMou9+FR96DxN+aMciH89er8Mp8pygGjjT9JOeFKuQkVeRjVMQg97P9Uw91xOu7dJ7efGFwEgkPqn+TYvXENNpFoppHHC5fy2lDMW/wT+uyu7quUMFn3rte0CnrXqp6a85tlVEeMeSySNq9sHeGM2sD9mP+RM/s+hm30AJ8G7qPAMEPYbKScrOTlsvhtvd2d83SYyDopm3tTV9/stJlIiJXkg8OTGeg0vpgOEqBeG7e5vaMzroOEzWiEl/+CsU6YlDPJ83bm6ERzUtbJUvFwRdO1PXZFbxqO2dc9+HCu6eT jenkins@jenkins"
+        key_data = "ssh-rsa ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnxUsNC4tSb1U4V8VajM23S9H/EaE887tVkLm9fsv4oeaRNP6xV/lXflIXZd1oe8N2KO/fBMXzBBaT7ROEayDw1qIQI9N4OXSOOTQLhnkmz84vJc86z2soO9etAOHtrmG3tKCRXl+5hsahkPXH25+4bCl85OW2WB/gdvBfbYdrtD6+JnkGIORHxBL5191hw+B4vCPxYcdhgh70kRmSjhdC/Fi1D+bkl4uA9G0gryD6AHV6Bbr/Ja7uYKlrzm0PoD9nPs/6eWSxY31woIq43zw5lgJLUlxycgdRB96d7B6biGHuGrkKWdiVfk8KlpRzTshSkY6TaLrb7U4GYFYcsStv jenkins@jenkins"
       }]
   }
 	
