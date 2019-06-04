@@ -58,15 +58,6 @@ resource "azurerm_managed_disk" "test" {
   create_option        = "Empty"
   disk_size_gb         = "1023"
 }
-
-resource "azurerm_container_registry" "test" {
-  name                     = "containerRegistry1"
-  resource_group_name      = "${azurerm_resource_group.test.name}"
-  location                 = "${azurerm_resource_group.test.location}"
-  sku                      = "Premium"
-  admin_enabled            = false
-}
-
 resource "azurerm_virtual_machine" "test" {
   name                  = "acctvm"
   location              = "${azurerm_resource_group.test.location}"
