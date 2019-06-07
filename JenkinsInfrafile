@@ -74,7 +74,18 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
                 expression { params.PUBLIC_CLOUD == 'Azure' }
       }
   steps{
-  sh "docker build -t demowsqc."
+  sh "docker build -t demowsqc ."
+  }
+  }
+  
+  stage("docker run")
+  {
+   when {
+                // checkout when Azure is  requested
+                expression { params.PUBLIC_CLOUD == 'Azure' }
+      }
+  steps{
+  sh "docker run -d -p 8081:8081 demowsqc."
   }
   }
 
