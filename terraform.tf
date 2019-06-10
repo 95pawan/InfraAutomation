@@ -11,12 +11,12 @@ subscription_id = "4c532d7a-ab03-4249-b257-67f510c22431"
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "acctestrg"
+  name     = "acctestrg1"
   location = "West US 2"
 }
 
 resource "azurerm_virtual_network" "test" {
-  name                = "acctvnn"
+  name                = "acctvnn1"
   address_space       = ["10.0.0.0/16"]
   location            = "${azurerm_resource_group.test.location}"
   resource_group_name = "${azurerm_resource_group.test.name}"
