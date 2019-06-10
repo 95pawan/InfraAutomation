@@ -131,7 +131,7 @@ resource "azurerm_virtual_machine_extension" "test" {
 
   settings = <<SETTINGS
     {
-        "fileUris": ["https://raw.github.com/95pawan/docker/master/docker_install"],
+        "fileUris": ["https://raw.github.com/95pawan/docker/master/docker_install.sh"],
           "commandToExecute": "sh docker_install.sh"
 	
 		  
