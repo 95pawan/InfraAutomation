@@ -72,6 +72,7 @@ resource "azurerm_network_interface" "test" {
   name                = "acctni"
   location            = "${azurerm_resource_group.test.location}"
   resource_group_name = "${azurerm_resource_group.test.name}"
+  network_security_group_id = "${azurerm_network_security_group.test.id}" 
 
   ip_configuration {
     name                          = "testconfiguration1"
