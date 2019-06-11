@@ -11,7 +11,7 @@ subscription_id = "4c532d7a-ab03-4249-b257-67f510c22431"
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "acctestrg1"
+  name     = "acctestrg"
   location = "West US 2"
 }
 
@@ -104,7 +104,7 @@ resource "azurerm_managed_disk" "test" {
   disk_size_gb         = "1023"
 }
 resource "azurerm_virtual_machine" "test" {
-  name                  = "acctvm"
+  name                  = "acctvmm"
   location              = "${azurerm_resource_group.test.location}"
   resource_group_name   = "${azurerm_resource_group.test.name}"
   network_interface_ids = ["${azurerm_network_interface.test.id}"]
