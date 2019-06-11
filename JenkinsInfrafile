@@ -91,12 +91,13 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
   }
    stage("Pull and deploy container")
   {
+   when {
+                // checkout when Azure is  requested
+                expression { params.PUBLIC_CLOUD == 'Azure' }
+      }
   withDockerServer([uri: 'terraformvm.westus2.cloudapp.azure.com'])
   {
-   withCredentials([
-                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerID', usernameVariable: 'jenkins', passwordVariable: 'Password1234!']
-            ])  
-	    steps
+     
 			{
 			sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
 			}
