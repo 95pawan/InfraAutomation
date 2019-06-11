@@ -102,6 +102,7 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
   sh "docker pull terra.azurecr.io/demowsqc "
   sh "docker run -d -p 8080:8080 terra.azurecr.io/demowsqc"
   }
+  }
   
   }
   }
