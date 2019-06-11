@@ -96,9 +96,10 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
   {
      
 			{
-                        sh "ssh jenkins@terraformvm.westus2.cloudapp.azure.com"
+			sh " ssh jenkins@terraformvm.westus2.cloudapp.azure.com"
+                        sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'""
 			}
-  sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"			
+  			
   sh "docker pull terra.azurecr.io/demowsqc "
   sh "docker run -d -p 8080:8080 terra.azurecr.io/demowsqc"
   }
