@@ -99,7 +99,7 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
       {
      
 			{
-			sh "docker login cicdregistry01.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+			sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
 			}
       steps{
       sh "docker pull terra.azurecr.io/demowsqc"
