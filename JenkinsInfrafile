@@ -89,22 +89,20 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
   sh "docker push terra.azurecr.io/demowsqc"
   }
   }
+   stage("Pull and deploy container")
+  {
+  withDockerServer([uri: 'terraformvm.westus2.cloudapp.azure.com'])
+  {
+   withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerID', usernameVariable: 'jenkins', passwordVariable: 'Password1234!']
+            ])  
+			{
+			sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
+			}
+  sh "docker pull terra.azurecr.io/demowsqc"
+  sh "docker run -d -p 8080:8080 terra.azurecr.io/demowsqc"
+  }
   
-  stage("Pull and deploy container")
-  {
-  when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-      }
-  steps
-  {
-  withDockerServer([uri: 'terraformvm.westus2.cloudapp.azure.com credentialsId:dockerID'])
-  {    
- sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
- sh "docker pull terra.azurecr.io/demowsqc"
- sh "docker run -d -p 8080:8080 terra.azurecr.io/demowsqc"
-  }
-  }
   }
   }
   }
