@@ -98,6 +98,9 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
       steps{
       withDockerServer([uri: 'terraformvm.westus2.cloudapp.azure.com'])
       {
+      withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerID', usernameVariable: 'jenkins']
+            ]) 
       
           
     
