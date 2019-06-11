@@ -78,8 +78,9 @@ resource "azurerm_network_interface" "test" {
     name                          = "testconfiguration1"
     subnet_id                     = "${azurerm_subnet.test.id}"
     private_ip_address_allocation = "dynamic"
-	public_ip_address_id          = "${azurerm_public_ip.test.id}"
+    public_ip_address_id          = "${azurerm_public_ip.test.id}"
   }
+ depends_on = ["azurerm_network_security_group.test"] 
 }
 
 resource "azurerm_managed_disk" "test" {
@@ -137,7 +138,7 @@ resource "azurerm_virtual_machine" "test" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "jenkins"
-    admin_password = "Password1234!"
+    #admin_password = "Password1234!"
   }
 
   os_profile_linux_config {
