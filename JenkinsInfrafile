@@ -89,26 +89,7 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
   sh "docker push terra.azurecr.io/demowsqc"
   }
   }
-  stage("docker deploy ")
-  {
-   when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-      }
-      withDockerServer([credentialsId: "dockerID", uri: "terraformvm.westus2.cloudapp.azure.com"])
-      {
-     
-       
-            
-     
-
-      steps{
-      sh "docker pull terra.azurecr.io/demowsqc"
-      sh "docker run -d -p 8080:8080 terra.azurecr.io/demowsqc"
   
-  }
-  }
-  }
   }
   }
   
