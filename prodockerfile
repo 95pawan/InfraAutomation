@@ -1,0 +1,48 @@
+node {
+try{
+    stage('Pull from SCM') {
+            checkout scm
+        } 
+
+  
+    stage("Build Container Image")
+  {
+  commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  
+  sh "docker build -t cicdimageregistry.azurecr.io/infraimage:${commit_id}  ."
+  }
+  
+    stage("Push Image to Container Registry")
+  {
+withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'CICDRegistry', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+            ])  
+                                                {
+                                                                sh "docker login cicdimageregistry.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+                                                }
+                                                                sh "docker push cicdimageregistry.azurecr.io/infraimage:${commit_id}"
+
+  
+  }
+    stage("Pull and deploy container")
+  {
+  withDockerServer([credentialsId: 'ansibledev', uri: 'dockermechine.centralus.cloudapp.azure.com'])
+  {
+   withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'CICDRegistry', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+            ])  
+                                                {
+                                                sh "docker login cicdimageregistry.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+                                                }
+sh "docker pull cicdimageregistry.azurecr.io/infraimage:${commit_id}"
+sh "docker run -d -p 7060:8080 --name infrademo cicdimageregistry.azurecr.io/infraimage:${commit_id}"
+  }
+  
+  }
+
+  
+  }catch(err)
+  {
+  echo "${err}"
+  }
+}
