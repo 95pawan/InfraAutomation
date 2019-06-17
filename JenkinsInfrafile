@@ -74,7 +74,8 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
                 expression { params.PUBLIC_CLOUD == 'Azure' }
       }
   steps{
-  sh "docker build -t terra.azurecr.io/demowsqc ."
+  commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  sh "docker build -t terra.azurecr.io/demowsqc:${commit_id}  ."
   }
   }
   
@@ -84,10 +85,29 @@ git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.
                 // checkout when Azure is  requested
                 expression { params.PUBLIC_CLOUD == 'Azure' }
       }
-  steps{
-  sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
-  sh "docker push terra.azurecr.io/demowsqc"
+      withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+            ])
+            {
+                                                                sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+                                                }
+                                                                sh "docker push terra.azurecr.io/demowsqc:${commit_id}"
+  
   }
+  stage("Pull and deploy container")
+  {
+  withDockerServer([credentialsId: 'dockerID', uri: 'terraformvm.westus2.cloudapp.azure.com'])
+  {
+   withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+            ])  
+                                                {
+                                                sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+                                                }
+sh "docker pull terra.azurecr.io/infraimage:${commit_id}"
+sh "docker run -d -p 7060:8080 --name infrademo terra.azurecr.io/demowsqc:${commit_id}"
+  }
+  
   }
   
   }
