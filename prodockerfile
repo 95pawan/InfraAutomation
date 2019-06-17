@@ -9,7 +9,7 @@ try{
   {
   commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
   
-  sh "docker build -t terra.azurecr.io/infraimage:${commit_id}  ."
+  sh "docker build -t terra.azurecr.io/demowsqc:${commit_id}  ."
   }
   
     stage("Push Image to Container Registry")
@@ -20,13 +20,13 @@ withCredentials([
                                                 {
                                                                 sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
                                                 }
-                                                                sh "docker push terra.azurecr.io/infraimage:${commit_id}"
+                                                                sh "docker push terra.azurecr.io/demowsqc:${commit_id}"
 
   
   }
     stage("Pull and deploy container")
   {
-  withDockerServer([credentialsId: 'ansibledev', uri: 'dockermechine.centralus.cloudapp.azure.com'])
+  withDockerServer([credentialsId: 'dockerID', uri: 'terraformvm.westus2.cloudapp.azure.com'])
   {
    withCredentials([
                 [$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
@@ -35,7 +35,7 @@ withCredentials([
                                                 sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
                                                 }
 sh "docker pull terra.azurecr.io/infraimage:${commit_id}"
-sh "docker run -d -p 7060:8080 --name infrademo terra.azurecr.io/infraimage:${commit_id}"
+sh "docker run -d -p 7060:8080 --name infrademo terra.azurecr.io/demowsqc:${commit_id}"
   }
   
   }
