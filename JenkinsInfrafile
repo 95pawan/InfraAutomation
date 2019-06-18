@@ -1,95 +1,113 @@
 pipeline {
     agent any
     parameters{
-        choice(
+        
+		booleanParam(defaultValue: true, description: 'VM Already Exists', name: 'VMFlag')
+		
+		choice(
             
         choices:'\nAzure\nAWS',
         description:'choose the cloud provider',
         name:'PUBLIC_CLOUD')
+		
+		choice(
+            
+        choices:'\nAnsible\nDocker',
+        description:'Way to install application',
+        name:'INFRA')
     }
-     stages{
-    stage ('checkout'){
-        when {
+	
+	environment {
+			
+		commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+			
+	}
+	
+    stages{
+		stage ('checkout'){
+		
+			when {
                 // checkout when Azure is  requested
                 expression { params.PUBLIC_CLOUD == 'Azure' }
-            }
-    steps{
-checkout scm
-}}
-stage ('checkout_AWS'){
-        when {
-                // checkout when Aws is  requested
+			}
+				 
+			steps{
+				checkout scm
+				}
+		}
+			 
+		stage ('checkout_AWS'){
+		
+			when {
                 expression { params.PUBLIC_CLOUD == 'AWS' }
-            }
-    steps{
-git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.dxc.com/vrajamanick2/cloudformation.git'
-}}
-// Mark the code build 'plan'....
-         
-            // Output Terraform version
+			}
+				
+			steps{
+				git credentialsId: 'd1d4fbac-ecd2-452f-82f4-e92ee4cd6e88', url: 'https://github.dxc.com/vrajamanick2/cloudformation.git'
+			}
+		}
             
             
-            stage ('Initialize Terraform'){
-                when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-                }
-                steps{
-            sh "terraform init"
-            }}
-       
-            stage ('Terraform Apply'){
-                when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-                }
-                steps{
-            
-            sh '''                 
-            terraform apply -input=true -auto-approve
-          
-            '''
-            
-            }
-            }
-            
-                                                stage ('run cloudformation script'){
-        when {
-                // checkout when Aws is  requested
-                expression { params.PUBLIC_CLOUD == 'AWS' }
-            }
-    steps{
-           sh '''
-                                   aws cloudformation create-stack --stack-name startmyinstance2 --template-body file://${WORKSPACE}/cloud.json
-                                   aws cloudformation wait stack-create-complete --stack-name startmyinstance2
-                                   
-                                   
-                                   '''
-}}
+		stage ('Run Azure Playbook'){
+		
+			when {
 
- stage("docker build")
-  {
-   when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-      }
-  steps{
-  sh "docker build -t terra.azurecr.io/demowsqc ."
-  }
-  }
+                expression { params.PUBLIC_CLOUD == 'Azure' && params.INFRA == 'Ansible' }
+            }
+			
+			steps{
+  ansiblePlaybook become: true,disableHostKeyChecking: true, credentialsId: 'ansibledev', installation: 'ansible-2.8.0', inventory: '${WORKSPACE}/hosts', playbook: '${WORKSPACE}/node-js.yml'
+			}
+		}
+		
+		 stage("docker build"){
+			
+			when {
   
-  stage("docker push ")
-  {
-   when {
-                // checkout when Azure is  requested
-                expression { params.PUBLIC_CLOUD == 'Azure' }
-      }
-  steps{
-  sh "docker login terra.azurecr.io -u 'terra' -p '5d8W2ouuhw=SWZ=S4HpqwKIhhOZQVBcZ'"
-  sh "docker push terra.azurecr.io/demowsqc"
-  }
-  }
+                expression { params.INFRA == 'Docker' }
+			}
+			
+			steps{			
+			
+			sh "docker build -t terra.azurecr.io/demowsqc:${commit_id}  ."
+			
+			}
+	}
   
-  }
-  }
+		stage("Push Image to Container Registry"){
+		
+			steps{
+			
+		
+				withCredentials([
+					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+				])  
+				{
+				sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+				}
+				sh "docker push terra.azurecr.io/demowsqc:${commit_id}"
+ 
+			}
+		}
+		
+		    stage("Pull and deploy container"){
+			
+				steps{
+			
+				withDockerServer([credentialsId: 'dockerID', uri: 'terraformvm.westus2.cloudapp.azure.com'])
+				{
+					withCredentials([
+					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+					])  
+						{
+							sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+						}
+						
+					sh "docker pull terra.azurecr.io/demowsqc:${commit_id}"
+					sh "docker run -d -p 7060:8080 --name infrademo terra.azurecr.io/demowsqc:${commit_id}"
+				}
+				
+			}
+  
+		}
   
