@@ -20,7 +20,7 @@ spec:
         - name: STACKATO_SERVICES
           value: "{\"wsqc-rabbitmq3\": {\"name\":\"guest\",\"hostname\":\"rabbitmq\",\"host\":\"rabbitmq\",\"port\":5672,\"vhost\":\"wsqc\",\"username\":\"guest\",\"user\":\"guest\",\"password\":\"password\",\"pass\":\"password\",\"uri\":\"amqp://guest:password@rabbitmq:5672/wsqc\",\"dashboard_url\":\"http://rabbitmq:15672\"}}"
       imagePullSecrets:
-      - name: azure-docker-secret
+      - name: acr-secret
 ---
 apiVersion: v1
 kind: Service
