@@ -13,18 +13,18 @@ try{
   {
   commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
   
-  sh "docker build -t cicdimageregistry.azurecr.io/infraimage:${commit_id}  ."
+  sh "docker build -t terra.azurecr.io/infraimage:${commit_id}  ."
   }
   
     stage("Push Image to Container Registry")
   {
  withCredentials([
-                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'CICDRegistry', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
             ])  
 			{
-				sh "docker login cicdimageregistry.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+				sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
 			}
-				sh "docker push cicdimageregistry.azurecr.io/infraimage:${commit_id}"
+				sh "docker push terra.azurecr.io/infraimage:${commit_id}"
  
   
   }
