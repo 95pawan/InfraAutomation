@@ -1,0 +1,43 @@
+node {
+try{
+    stage('Pull from SCM') {
+            checkout scm
+        } 
+		
+	stage('whoami') {
+            sh "whoami"
+        } 
+
+  
+    stage("Build Container Image")
+  {
+  commit_id = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+  
+  sh "docker build -t cicdimageregistry.azurecr.io/infraimage:${commit_id}  ."
+  }
+  
+    stage("Push Image to Container Registry")
+  {
+ withCredentials([
+                [$class: 'UsernamePasswordMultiBinding', credentialsId: 'CICDRegistry', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+            ])  
+			{
+				sh "docker login cicdimageregistry.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
+			}
+				sh "docker push cicdimageregistry.azurecr.io/infraimage:${commit_id}"
+ 
+  
+  }
+
+    stage("Kubernetes deployment")
+  {
+  sh "sed 's/\$COMMIT/${commit_id}/g' kube-wsqc-ui.yml | kubectl apply -f - " 
+  sh 'kubectl get services'
+  }
+
+  
+  }catch(err)
+  {
+  echo "${err}"
+  }
+}
