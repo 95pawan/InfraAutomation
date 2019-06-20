@@ -125,7 +125,7 @@ pipeline {
 		    stage("Kubernetes deployment")
   {
   sh "sed 's/\$COMMIT/${commit_id}/g' kube-wsqc-ui.yml | kubectl apply -f - " 
-  sh 'kubectl get services'
+  sh "kubectl get services"
   }
 }
 }
