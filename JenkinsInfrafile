@@ -2,7 +2,11 @@ pipeline {
     agent any
     parameters{
         
-		booleanParam(defaultValue: true, description: 'VM Already Exists', name: 'VMFlag')
+		choice(
+            
+        choices:'\nYES\nNO',
+        description:'VM EXISTS?',
+        name:'VMFlag')
 		
 		choice(
             
@@ -47,19 +51,44 @@ pipeline {
 			}
 		}
             
+        stage ('Initialize Terraform'){
+		
+            when {
+                expression { params.PUBLIC_CLOUD == 'Azure' && params.VMFlag == 'NO' }
+            }
+				
+            steps{
+            sh "terraform init"
+            }
+		}
+       
+        stage ('Terraform Apply'){
+		
+            when {
+                expression { params.PUBLIC_CLOUD == 'Azure' && params.VMFlag == 'NO' }
+            }
+				
+            steps{
+            
+            sh '''                 
+            terraform apply -input=true -auto-approve          
+            '''            
+            }
+        }
             
 		stage ('Run Azure Playbook'){
 		
 			when {
 
-                expression { params.PUBLIC_CLOUD == 'Azure' && params.INFRA == 'Ansible' }
+                expression { params.INFRA == 'Ansible' }
             }
 			
 			steps{
-  ansiblePlaybook become: true,disableHostKeyChecking: true, credentialsId: 'ansibledev', installation: 'ansible-2.8.0', inventory: '${WORKSPACE}/hosts', playbook: '${WORKSPACE}/node-js.yml'
+  ansiblePlaybook become: true,disableHostKeyChecking: true, credentialsId: 'dockerID', installation: 'ansible-2.8.0', inventory: '${WORKSPACE}/hosts', playbook: '${WORKSPACE}/node-js.yml'
 			}
 		}
 		
+
 		 stage("docker build"){
 			
 			when {
@@ -69,47 +98,34 @@ pipeline {
 			
 			steps{			
 			
-			sh "docker build -t terra.azurecr.io/demowsqc:${commit_id}  ."
+			sh "docker build -t terra.azurecr.io/infraimage:${commit_id}  ."
 			
 			}
-	}
+		}
   
 		stage("Push Image to Container Registry"){
 		
-			steps{
-			
+			when {
+  
+                expression { params.INFRA == 'Docker' }
+			}
 		
+			steps{
+					
 				withCredentials([
-					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'containerregistryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
 				])  
 				{
 				sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
 				}
-				sh "docker push terra.azurecr.io/demowsqc:${commit_id}"
- 
+				sh "docker push terra.azurecr.io/infraimage:${commit_id}"
 			}
 		}
 		
-		    stage("Pull and deploy container"){
-			
-				steps{
-			
-				withDockerServer([credentialsId: 'dockerID', uri: 'terraformvm.westus2.cloudapp.azure.com'])
-				{
-					withCredentials([
-					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'registryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
-					])  
-						{
-							sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
-						}
-						
-					sh "docker pull terra.azurecr.io/demowsqc:${commit_id}"
-					sh "docker run -d -p 7060:8080 --name infrademo terra.azurecr.io/demowsqc:${commit_id}"
-				}
-				
-			}
-  
-		}
-  
+		    stage("Kubernetes deployment")
+  {
+  sh "sed 's/\$COMMIT/${commit_id}/g' kube-wsqc-ui.yml | kubectl apply -f - " 
+  sh 'kubectl get services'
+  }
 }
 }
