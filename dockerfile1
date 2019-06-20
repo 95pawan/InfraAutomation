@@ -19,7 +19,7 @@ try{
     stage("Push Image to Container Registry")
   {
  withCredentials([
-					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
+					[$class: 'UsernamePasswordMultiBinding', credentialsId: 'containerregistryID', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']
 				])  
 				{
 				sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
