@@ -124,8 +124,13 @@ pipeline {
 		
 		    stage("Kubernetes deployment")
   {
+   when {
+                expression { params.PUBLIC_CLOUD == 'Azure' && params.VMFlag == 'NO' }
+            }
+	  steps{
   sh "sed 's/\$COMMIT/${commit_id}/g' kube-wsqc-ui.yml | kubectl apply -f - " 
   sh "kubectl get services"
+  }
   }
 }
 }
