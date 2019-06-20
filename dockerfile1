@@ -24,7 +24,7 @@ try{
 				{
 				sh "docker login terra.azurecr.io -u '${env.USERNAME}' -p '${env.PASSWORD}'"
 				}
-				sh "docker push terra.azurecr.io/demowsqc:${commit_id}"
+				sh "docker push terra.azurecr.io/infraimage:${commit_id}"
  
   
   }
