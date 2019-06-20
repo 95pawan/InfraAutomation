@@ -1,12 +1,12 @@
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
-subscription_id = ""
+subscription_id = "4c532d7a-ab03-4249-b257-67f510c22431"
    
- client_id       = ""
+ client_id       = "63c246df-a1c6-4141-9367-7a251cdb1094"
    
- client_secret   = ""
+ client_secret   = "Z6Knb0c_uRkRhd-Sw]sN45ij@HFEFX51"
   
- tenant_id       = ""
+ tenant_id       = "93f33571-550f-43cf-b09f-cd331338d086"
 
 }
 
@@ -186,5 +186,4 @@ tags {
     environment = "Production"
   }
 }
-
 
