@@ -165,5 +165,5 @@ resource "azurerm_virtual_machine" "test" {
     environment = "staging"
   }
 }
-}
+
 
