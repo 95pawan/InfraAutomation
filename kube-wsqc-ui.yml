@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: wsqcuserinterface
-        image: dxccna.azurecr.io/wsqcuserinterface:latest
+        image: terra.azurecr.io/infraimage:$COMMIT
         ports:
           - containerPort: 8081        
         env:
@@ -20,7 +20,7 @@ spec:
         - name: STACKATO_SERVICES
           value: "{\"wsqc-rabbitmq3\": {\"name\":\"guest\",\"hostname\":\"rabbitmq\",\"host\":\"rabbitmq\",\"port\":5672,\"vhost\":\"wsqc\",\"username\":\"guest\",\"user\":\"guest\",\"password\":\"password\",\"pass\":\"password\",\"uri\":\"amqp://guest:password@rabbitmq:5672/wsqc\",\"dashboard_url\":\"http://rabbitmq:15672\"}}"
       imagePullSecrets:
-      - name: acr-secret
+      - name: kube-secret
 ---
 apiVersion: v1
 kind: Service
