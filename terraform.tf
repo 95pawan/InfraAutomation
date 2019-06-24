@@ -34,7 +34,7 @@ resource "azurerm_public_ip" "test" {
     location                     = "${azurerm_resource_group.test.location}"
     resource_group_name          = "${azurerm_resource_group.test.name}"
     public_ip_address_allocation = "dynamic"
-    domain_name_label            = "terraformvm"
+    domain_name_label            = "terraformmyvm"
 }
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "test" {
