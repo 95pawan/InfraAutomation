@@ -60,21 +60,11 @@ resource "azurerm_network_security_group" "test" {
         access                     = "Allow"
         protocol                   = "Tcp"
         source_port_range          = "*"
-        destination_port_range     = "8080"
-        source_address_prefix      = "*"
-        destination_address_prefix = "*"
-    }
-	security_rule {
-        name                       = "httpp"
-        priority                   = 1003
-        direction                  = "Inbound"
-        access                     = "Allow"
-        protocol                   = "Tcp"
-        source_port_range          = "*"
         destination_port_range     = "8081"
         source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
+
 	
 }
 
@@ -104,7 +94,7 @@ resource "azurerm_managed_disk" "test" {
   disk_size_gb         = "1023"
 }
 resource "azurerm_virtual_machine" "test" {
-  name                  = "acctvmm"
+  name                  = "TerraformUbuntuVM"
   location              = "${azurerm_resource_group.test.location}"
   resource_group_name   = "${azurerm_resource_group.test.name}"
   network_interface_ids = ["${azurerm_network_interface.test.id}"]
@@ -148,18 +138,19 @@ resource "azurerm_virtual_machine" "test" {
   }
 
   os_profile {
-    computer_name  = "hostname"
+    computer_name  = "TerraformUbuntuVM"
     admin_username = "jenkins"
 
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
-	  ssh_keys {
-        path     = "/home/jenkins/.ssh/authorized_keys"
-        key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnxUsNC4tSb1U4V8VajM23S9H/EaE887tVkLm9fsv4oeaRNP6xV/lXflIXZd1oe8N2KO/fBMXzBBaT7ROEayDw1qIQI9N4OXSOOTQLhnkmz84vJc86z2soO9etAOHtrmG3tKCRXl+5hsahkPXH25+4bCl85OW2WB/gdvBfbYdrtD6+JnkGIORHxBL5191hw+B4vCPxYcdhgh70kRmSjhdC/Fi1D+bkl4uA9G0gryD6AHV6Bbr/Ja7uYKlrzm0PoD9nPs/6eWSxY31woIq43zw5lgJLUlxycgdRB96d7B6biGHuGrkKWdiVfk8KlpRzTshSkY6TaLrb7U4GYFYcsStv"
-      }
-  }
+	ssh_keys {
+            path     = "/home/jenkins/.ssh/authorized_keys"
+            key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs3y1VhoOFS5hVde4O0FsvItXPQ2BO1Lvlpc/+aFty67FacRuebu7weUyiCxmAsHyxxWgkmPP+EXlOTRUoFd7NJuZy/ANNTRFrSJPiC4/nJli3LvZe1SK5hP6h26VIrWay4UvfvsNFtSVuUtt5U1zLdCjwpMrSVQCCu4nV1aoGkUPv6OPsE4iEGcnK/Zctqsgo+MjUTF5gy0gRSnBnFuD8QWnXoH8dJhhp8STw9Uhr+7b5vG7bVkXKBN8Ihf+tlgcvESMaS0WIsdaD3YHB4YeXmgu8uxXukpibffoAwPn+rbUu4PbP2t8ZBlEcZ7R8cBXGjngZbm6dQfFmEPbE6Oe1"
+		}
+  } 
+
 	
   tags {
     environment = "staging"
