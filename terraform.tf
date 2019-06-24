@@ -11,7 +11,7 @@ subscription_id = "4c532d7a-ab03-4249-b257-67f510c22431"
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "acctestrg1"
+  name     = "acctestrg"
   location = "West US 2"
 }
 
