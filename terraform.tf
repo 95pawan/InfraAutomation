@@ -16,7 +16,7 @@ resource "azurerm_resource_group" "test" {
 }
 
 resource "azurerm_virtual_network" "test" {
-  name                = "acctvnn1"
+  name                = "acctvnn"
   address_space       = ["10.0.0.0/16"]
   location            = "${azurerm_resource_group.test.location}"
   resource_group_name = "${azurerm_resource_group.test.name}"
@@ -150,15 +150,15 @@ resource "azurerm_virtual_machine" "test" {
   os_profile {
     computer_name  = "hostname"
     admin_username = "jenkins"
-    #admin_password = "Password1234!"
+
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
-	  ssh_keys = [{
+	  ssh_keys {
         path     = "/home/jenkins/.ssh/authorized_keys"
-        key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnxUsNC4tSb1U4V8VajM23S9H/EaE887tVkLm9fsv4oeaRNP6xV/lXflIXZd1oe8N2KO/fBMXzBBaT7ROEayDw1qIQI9N4OXSOOTQLhnkmz84vJc86z2soO9etAOHtrmG3tKCRXl+5hsahkPXH25+4bCl85OW2WB/gdvBfbYdrtD6+JnkGIORHxBL5191hw+B4vCPxYcdhgh70kRmSjhdC/Fi1D+bkl4uA9G0gryD6AHV6Bbr/Ja7uYKlrzm0PoD9nPs/6eWSxY31woIq43zw5lgJLUlxycgdRB96d7B6biGHuGrkKWdiVfk8KlpRzTshSkY6TaLrb7U4GYFYcsStv jenkins@jenkins"
-      }]
+        key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnxUsNC4tSb1U4V8VajM23S9H/EaE887tVkLm9fsv4oeaRNP6xV/lXflIXZd1oe8N2KO/fBMXzBBaT7ROEayDw1qIQI9N4OXSOOTQLhnkmz84vJc86z2soO9etAOHtrmG3tKCRXl+5hsahkPXH25+4bCl85OW2WB/gdvBfbYdrtD6+JnkGIORHxBL5191hw+B4vCPxYcdhgh70kRmSjhdC/Fi1D+bkl4uA9G0gryD6AHV6Bbr/Ja7uYKlrzm0PoD9nPs/6eWSxY31woIq43zw5lgJLUlxycgdRB96d7B6biGHuGrkKWdiVfk8KlpRzTshSkY6TaLrb7U4GYFYcsStv"
+      }
   }
 	
   tags {
