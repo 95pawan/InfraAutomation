@@ -1,4 +1,4 @@
-terraformvm.westus2.cloudapp.azure.com ansible_user=jenkins
+terraformmyvm.westus2.cloudapp.azure.com ansible_user=jenkins
 
 #dockermechine.eastus.cloudapp.azure.com ansible_user=dxcadmin
 
