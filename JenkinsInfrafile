@@ -84,7 +84,7 @@ pipeline {
             }
 			
 			steps{
-  ansiblePlaybook become: true,disableHostKeyChecking: true, credentialsId: 'dockerID', installation: 'ansible-2.8.0', inventory: '${WORKSPACE}/hosts', playbook: '${WORKSPACE}/node-js.yml'
+  ansiblePlaybook become: true,disableHostKeyChecking: true, credentialsId: 'AnisibleID', installation: 'ansible-2.8.0', inventory: '${WORKSPACE}/hosts', playbook: '${WORKSPACE}/node-js.yml'
 			}
 		}
 		
