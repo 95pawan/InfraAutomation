@@ -11,7 +11,7 @@ subscription_id = "4c532d7a-ab03-4249-b257-67f510c22431"
 }
 
 resource "azurerm_resource_group" "test" {
-  name     = "acctestrg1"
+  name     = "acctestrg"
   location = "West US 2"
 }
 
@@ -147,7 +147,7 @@ resource "azurerm_virtual_machine" "test" {
     disable_password_authentication = true
 	ssh_keys {
             path     = "/home/jenkins/.ssh/authorized_keys"
-            key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCs3y1VhoOFS5hVde4O0FsvItXPQ2BO1Lvlpc/+aFty67FacRuebu7weUyiCxmAsHyxxWgkmPP+EXlOTRUoFd7NJuZy/ANNTRFrSJPiC4/nJli3LvZe1SK5hP6h26VIrWay4UvfvsNFtSVuUtt5U1zLdCjwpMrSVQCCu4nV1aoGkUPv6OPsE4iEGcnK/Zctqsgo+MjUTF5gy0gRSnBnFuD8QWnXoH8dJhhp8STw9Uhr+7b5vG7bVkXKBN8Ihf+tlgcvESMaS0WIsdaD3YHB4YeXmgu8uxXukpibffoAwPn+rbUu4PbP2t8ZBlEcZ7R8cBXGjngZbm6dQfFmEPbE6Oe1"
+            key_data = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDZjT9N4ABcoyOb3YbrJEMkHvF/ZJ9vdNE9sgu8ihoueQc8oOoRSNwLroABOehN88NCxQtpYAKwymYknQkZGSwkN3b8zuA6n0Ztq6uioOLj7oYsd2mTWVVwZxvd/uOx4HViVcmIr4KgBUk20eBCE16erXsBcmdWtNc2VmHTFXEiKY/TlcBDlVb77jBoDHoJxcEtVRedYxMye+M1ynqgAFge+OzyGbWTnabFXxQOGl8no66oY/TjFFr+/gis5GkKTvfzLWyaj1JnWpEm4VJLGlX/iH9S8ITKnDwgT0NoCZJcjGZXrVxkDtwwIPxb27fHzByj4dQKKMsvn0CTP4iog3nN"
 		}
   } 
 
