@@ -1,0 +1,5 @@
+myterraformvm.westus2.cloudapp.azure.com ansible_user=dxcadmin
+
+#dockermechine.eastus.cloudapp.azure.com ansible_user=dxcadmin
+
+#dxcadmin@13.66.240.237
