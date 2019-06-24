@@ -130,7 +130,6 @@ pipeline {
 	  steps{
   sh "sed 's/\$COMMIT/${commit_id}/g' kube-wsqc-ui.yml | kubectl apply -f - " 
   sh 'kubectl get services'
-  sh 'watch kubectl get services'
   }
   }
 }
